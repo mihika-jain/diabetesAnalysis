@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 
-def load_diabetes_data(path = "../data/samadult.csv"):
+def load_diabetes_data(path):
     # load in the original data
     diabetes_orig = pd.read_csv(path)
 
