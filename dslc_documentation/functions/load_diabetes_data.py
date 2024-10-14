@@ -40,7 +40,7 @@ def load_diabetes_data(path):
     # create a person id column
     diabetes["person_id"] = diabetes["FPX"].astype(str)'''
 
-    # create the diabetes column
+    '''    # create the diabetes column
     diabetes["diabetes"] = (diabetes["DIBEV1"] == 1).astype(int)
     # create coronary heart disease column
     diabetes["coronary_heart_disease"] = (diabetes["CHDEV"] == 1).astype(int)
@@ -51,7 +51,20 @@ def load_diabetes_data(path):
     # create cancer column
     diabetes["cancer"] = (diabetes["CANEV"] == 1).astype(int)
     # create family_history_diabetes column
-    diabetes["family_history_diabetes"] = (diabetes["DIBREL"] == 1).astype(int)
+    diabetes["family_history_diabetes"] = (diabetes["DIBREL"] == 1).astype(int)'''
+
+    # create the diabetes column
+    diabetes["diabetes"] = diabetes["DIBEV1"]
+    # create coronary heart disease column
+    diabetes["coronary_heart_disease"] = diabetes["CHDEV"]
+    # create hypertension column
+    diabetes["hypertension"] = diabetes["HYPEV"]
+    # create heart_condition column
+    diabetes["heart_condition"] = diabetes["HRTEV"]
+    # create cancer column
+    diabetes["cancer"] = diabetes["CANEV"]
+    # create family_history_diabetes column
+    diabetes["family_history_diabetes"] = diabetes["DIBREL"]
     # rename remaining relevant columns
     diabetes = diabetes.rename(columns={"AGE_P": "age",
                                       "SMKEV": "smoker",
@@ -60,8 +73,8 @@ def load_diabetes_data(path):
                                       "BMI": "bmi",
                                       "AHEIGHT": "height",
                                       "DBHVPAY" : "doctor_recommend_exercise",
-                                      "MODTP": "moderate_physical_activity",
-                                      "VIGTP": "vigorous_physical_activity",
+                                      "MODFREQW": "moderate_physical_activity",
+                                      "VIGFREQW": "vigorous_physical_activity",
                                       "ALC12MNO" : "alcohol_past_year",
                                       "HYPMDEV2": "high_blood_pressure_prescription",
                                       "REGION": "region",
