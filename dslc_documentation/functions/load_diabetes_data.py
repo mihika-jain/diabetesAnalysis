@@ -55,6 +55,12 @@ def load_diabetes_data(path):
 
     # create the diabetes column
     diabetes["diabetes"] = diabetes["DIBEV1"]
+    #diabetes pill
+    diabetes["medicated"] = diabetes["DIBPILL1"]
+    #prediabtes
+    diabetes["prediabetes"] = diabetes["DIBPRE2"]
+    #taking insulin
+    diabetes["insulin"] = diabetes["INSLN1"]
     # create coronary heart disease column
     diabetes["coronary_heart_disease"] = diabetes["CHDEV"]
     # create hypertension column
@@ -103,6 +109,9 @@ def load_diabetes_data(path):
                         "alcohol_past_year",
                         "high_blood_pressure_prescription",
                         "region",
-                        "marital_status"]]
+                        "marital_status",
+                        "medicated",
+                        "prediabetes",
+                        "insulin"]]
     return(diabetes)
 
