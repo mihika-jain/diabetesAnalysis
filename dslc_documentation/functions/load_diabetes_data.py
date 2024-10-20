@@ -59,6 +59,10 @@ def load_diabetes_data(path):
     diabetes["medicated"] = diabetes["DIBPILL1"]
     #prediabtes
     diabetes["prediabetes"] = diabetes["DIBPRE2"]
+    #cholesterol
+    diabetes["cholesterol"] = diabetes["CHLYR"]
+    #stroke
+    diabetes["stroke"] = diabetes["STREV"]
     #taking insulin
     diabetes["insulin"] = diabetes["INSLN1"]
     # create coronary heart disease column
@@ -112,6 +116,8 @@ def load_diabetes_data(path):
                         "marital_status",
                         "medicated",
                         "prediabetes",
-                        "insulin"]]
+                        "insulin",
+                        "stroke",
+                        "cholesterol"]]
     return(diabetes)
 
