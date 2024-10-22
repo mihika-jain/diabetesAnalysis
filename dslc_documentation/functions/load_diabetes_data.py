@@ -88,7 +88,10 @@ def load_diabetes_data(path):
                                       "ALC12MNO" : "alcohol_past_year",
                                       "HYPMDEV2": "high_blood_pressure_prescription",
                                       "REGION": "region",
-                                      "R_MARITL": "marital_status"})
+                                      "R_MARITL": "marital_status",
+                                       "DBHVCLY" : "told_reduce_fat",
+                                       "DBHVWLN" : "weight_loss_program",
+                                       "ASISLEEP": "hours_sleep"})
 
     # select just the relevant columns
     diabetes = diabetes[[#"household_id",
