@@ -14,8 +14,7 @@ def load_diabetes_data(path):
     # add an id column
     diabetes["id"] = np.arange(len(diabetes.index))
     # create the house_family_person_id column by joining together three ID columns
-    #diabetes["house_family_person_id"] = diabetes.apply(lambda x: "_".join(x[["HHX", "FMX", "FPX"]].astype(int).astype(str)), 
-    #                                                    axis=1)
+
     # Determine the maximum number of digits for each column
     max_digits_HHX = diabetes["HHX"].astype(str).str.len().max()
     diabetes["FMX_padded"] = diabetes["FMX"].astype(str).str.zfill(2)
@@ -31,40 +30,15 @@ def load_diabetes_data(path):
         axis=1
     )
 
-    '''#create a household id column
-    diabetes["household_id"] = diabetes["HHX"].astype(str)
-
-    # create a family id column
-    diabetes["family_id"] = diabetes["FMX"].astype(str)
-
-    # create a person id column
-    diabetes["person_id"] = diabetes["FPX"].astype(str)'''
-
-    '''    # create the diabetes column
-    diabetes["diabetes"] = (diabetes["DIBEV1"] == 1).astype(int)
-    # create coronary heart disease column
-    diabetes["coronary_heart_disease"] = (diabetes["CHDEV"] == 1).astype(int)
-    # create hypertension column
-    diabetes["hypertension"] = (diabetes["HYPEV"] == 1).astype(int)
-    # create heart_condition column
-    diabetes["heart_condition"] = (diabetes["HRTEV"] == 1).astype(int)
-    # create cancer column
-    diabetes["cancer"] = (diabetes["CANEV"] == 1).astype(int)
-    # create family_history_diabetes column
-    diabetes["family_history_diabetes"] = (diabetes["DIBREL"] == 1).astype(int)'''
-
     # create the diabetes column
     diabetes["diabetes"] = diabetes["DIBEV1"]
-    #diabetes pill
-    diabetes["medicated"] = diabetes["DIBPILL1"]
-    #prediabtes
-    diabetes["prediabetes"] = diabetes["DIBPRE2"]
     #cholesterol
-    diabetes["cholesterol"] = diabetes["CHLYR"]
+    diabetes["cholesterol"] = diabetes["CHLEV"]
     #stroke
     diabetes["stroke"] = diabetes["STREV"]
     #taking insulin
-    diabetes["insulin"] = diabetes["INSLN1"]
+    #diabetes["insulin"] = diabetes["INSLN1"]
+    diabetes["blood_sugar"] = diabetes["APSBSCHK"]
     # create coronary heart disease column
     diabetes["coronary_heart_disease"] = diabetes["CHDEV"]
     # create hypertension column
@@ -91,13 +65,20 @@ def load_diabetes_data(path):
                                       "R_MARITL": "marital_status",
                                        "DBHVCLY" : "told_reduce_fat",
                                        "DBHVWLN" : "weight_loss_program",
-                                       "ASISLEEP": "hours_sleep"})
+                                       "ASISLEEP": "hours_sleep",
+                                       "RACERPI2" : "race",
+                                       "ANGEV": "angina_pectoris",
+                                       "MIEV": "heart_attack",
+                                       "KIDWKYR" : "kidney_weak",
+                                       "FLA1AR" : "functional_limits",
+                                       "PREGEVER" : "ever_pregnent",
+                                       "ARTH1" : "arthritis",
+                                       "AFLHCA17" : "depression",
+                                       "ARX12_1" : "skip_medication",
+                                       "AHCAFYR1" : "cannot_afford_medication"})
 
     # select just the relevant columns
-    diabetes = diabetes[[#"household_id",
-                        #"family_id",
-                        #"person_id",
-                        "house_family_person_id",
+    diabetes = diabetes[["house_family_person_id",
                         "diabetes",
                         "age",
                         "smoker",
@@ -114,13 +95,19 @@ def load_diabetes_data(path):
                         "moderate_physical_activity",
                         "vigorous_physical_activity",
                         "alcohol_past_year",
-                        "high_blood_pressure_prescription",
                         "region",
                         "marital_status",
-                        "medicated",
-                        "prediabetes",
-                        "insulin",
                         "stroke",
-                        "cholesterol"]]
+                        "told_reduce_fat",
+                        "weight_loss_program",
+                        "hours_sleep",
+                        "blood_sugar",
+                        "race",
+                        "angina_pectoris",
+                        "heart_attack",
+                        "kidney_weak",
+                        "functional_limits",
+                        "arthritis",
+                        "cannot_afford_medication"]]
     return(diabetes)
 

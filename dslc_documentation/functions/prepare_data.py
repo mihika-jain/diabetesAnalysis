@@ -30,51 +30,13 @@ def invalid_to_nan(data: pd.DataFrame, cols: str, invalid_values: list) -> pd.Da
     return data
 
 def categories_oneHot(data: pd.DataFrame, cols: list, drop_first: bool, mappings: dict) -> pd.DataFrame:
-    data = data.copy(deep=True)
+    data = data.copy()
     for c in cols:
-        data[c] = data[c].map(mappings).fillna(data[c])
+        data[c] = data[c].map(mappings)
     data = pd.get_dummies(data, columns=cols, drop_first=drop_first)
     return data
 
-def impute_val(data: pd.DataFrame, cols: list, cols_toBase: Optional[list]):
-    data = data.copy(deep=True)
-    for i,c in enumerate(cols):
-        if cols_toBase is not None and len(cols_toBase) > i:
-            base_col = cols_toBase[i]
-            data[c] = data.apply(
-                        lambda row: row[c] if pd.notna(row[c]) else (
-                            data.groupby(base_col)[c].transform('mean')[row.name]
-                            if pd.notna(row[base_col]) else data[c].mean()
-                        ),
-                        axis=1
-                    )
-        # If cols_toBase is empty, impute based on the overall mean
-        data[c] = data[c].fillna(data[c].mean())
 
-    return data
-
-def fill_missing(data: pd.DataFrame, cols: list, fill_value:list) -> pd.DataFrame:
-    data = data.copy(deep=True)
-    for i,c in enumerate(cols):
-        data[c] = data[c].fillna(fill_value[i])
-    return data
-
-def fill_BMI(data: pd.DataFrame) -> pd.DataFrame:
-    # Function to calculate BMI
-    data = data.copy(deep=True)
-    
-    def calculate_bmi(row):
-        if pd.notna(row['height']) and pd.notna(row['weight']):
-            height_m = row['height'] / 100  # Convert height to meters
-            return row['weight'] / (height_m ** 2)
-        return np.nan
-
-    # Fill missing BMI values
-    data['bmi'] = data.apply(
-        lambda row: calculate_bmi(row) if pd.isna(row['bmi']) else row['bmi'],
-        axis=1
-    )
-    return data
 
 def split_data(data: pd.DataFrame, train_size: float = 0.7, val_size: float = 0.15, 
     test_size: float = 0.15, random_state: int = 42) -> tuple:
