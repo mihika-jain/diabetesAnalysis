@@ -5,6 +5,7 @@ from typing import Optional
 from sklearn.model_selection import train_test_split
 
 def num_unique_cols(data: pd.DataFrame, cols: str, num_unique) -> pd.DataFrame:
+    "Changes all values above the number of unique items that should be in the columns to NAN"
     data = data.copy(deep=True)
     for c in cols:
         unique_values = data[c].unique()
@@ -24,12 +25,14 @@ def num_unique_cols(data: pd.DataFrame, cols: str, num_unique) -> pd.DataFrame:
     return data
 
 def invalid_to_nan(data: pd.DataFrame, cols: str, invalid_values: list) -> pd.DataFrame:
+    "Changes invalid values to NAN"
     data = data.copy(deep=True)
     for c in cols:
         data[c] = data[c].replace(invalid_values, np.nan)
     return data
 
 def categories_oneHot(data: pd.DataFrame, cols: list, drop_first: bool, mappings: dict) -> pd.DataFrame:
+    "one hot encodes the columns listed"
     data = data.copy()
     for c in cols:
         data[c] = data[c].map(mappings)
